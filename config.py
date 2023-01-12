@@ -20,3 +20,4 @@ class DefaultConfig:
     LUIS_API_KEY = os.getenv("LuisAPIKey")
     # LUIS endpoint host name, ie "westus.api.cognitive.microsoft.com"
     LUIS_API_HOST_NAME = os.getenv("LuisAPIHostName")
+    print(LUIS_API_HOST_NAME)
