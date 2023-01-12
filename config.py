@@ -13,7 +13,7 @@ class DefaultConfig:
 
     load_dotenv(override=True)
 
-    PORT = 3978
+    PORT = 8000
     APP_ID = os.environ.get("MicrosoftAppId", "")
     APP_PASSWORD = os.getenv("MicrosoftAppPassword", "")
     LUIS_APP_ID = os.getenv("LuisAppId")
