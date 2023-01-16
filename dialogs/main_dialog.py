@@ -8,7 +8,7 @@ from botbuilder.dialogs import (
     DialogTurnResult,
 )
 from botbuilder.dialogs.prompts import TextPrompt, PromptOptions
-from botbuilder.core import MessageFactory, TurnContext
+from botbuilder.core import BotTelemetryClient, MessageFactory, NullTelemetryClient, TurnContext
 from botbuilder.schema import InputHints
 
 from booking_details import BookingDetails
@@ -19,20 +19,28 @@ from .booking_dialog import BookingDialog
 
 class MainDialog(ComponentDialog):
     def __init__(
-        self, luis_recognizer: FlightBookingRecognizer, booking_dialog: BookingDialog
+        self, luis_recognizer: FlightBookingRecognizer,
+            booking_dialog: BookingDialog,
+            telemetry_client: BotTelemetryClient = None,
     ):
         super(MainDialog, self).__init__(MainDialog.__name__)
 
+        self.telemetry_client = telemetry_client or NullTelemetryClient()
         self._luis_recognizer = luis_recognizer
         self._booking_dialog_id = booking_dialog.id
 
-        self.add_dialog(TextPrompt(TextPrompt.__name__))
+        textprompt = TextPrompt(TextPrompt.__name__)
+        textprompt.telemetry_client = self.telemetry_client
+        self.add_dialog(textprompt)
+
+        booking_dialog.telemetry_client = self.telemetry_client
         self.add_dialog(booking_dialog)
-        self.add_dialog(
-            WaterfallDialog(
+
+        wfdialog = WaterfallDialog(
                 "WFDialog", [self.intro_step, self.act_step, self.final_step]
             )
-        )
+        wfdialog.telemetry_client = self.telemetry_client
+        self.add_dialog(wfdialog)
 
         self.initial_dialog_id = "WFDialog"
 

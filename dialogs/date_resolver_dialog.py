@@ -3,7 +3,7 @@
 
 from datatypes_date_time.timex import Timex
 
-from botbuilder.core import MessageFactory
+from botbuilder.core import BotTelemetryClient, MessageFactory, NullTelemetryClient
 from botbuilder.dialogs import WaterfallDialog, DialogTurnResult, WaterfallStepContext
 from botbuilder.dialogs.prompts import (
     DateTimePrompt,
@@ -16,22 +16,22 @@ from .cancel_and_help_dialog import CancelAndHelpDialog
 
 
 class DateResolverDialog(CancelAndHelpDialog):
-    def __init__(self, dialog_id: str = None):
+    def __init__(self, dialog_id: str = None, telemetry_client: BotTelemetryClient = NullTelemetryClient()):
         super(DateResolverDialog, self).__init__(
             dialog_id or DateResolverDialog.__name__
         )
         self._dialog_id = dialog_id
+        self.telemetry_client = telemetry_client
 
-        self.add_dialog(
-            DateTimePrompt(
-                DateTimePrompt.__name__, DateResolverDialog.datetime_prompt_validator
-            )
+        dateprompt = DateTimePrompt(DateTimePrompt.__name__, DateResolverDialog.datetime_prompt_validator)
+        dateprompt.telemetry_client = telemetry_client
+        self.add_dialog(dateprompt)
+
+        wfdialog = WaterfallDialog(
+            WaterfallDialog.__name__ + "2", [self.initial_step, self.final_step]
         )
-        self.add_dialog(
-            WaterfallDialog(
-                WaterfallDialog.__name__ + "2", [self.initial_step, self.final_step]
-            )
-        )
+        wfdialog.telemetry_client = telemetry_client
+        self.add_dialog(wfdialog)
 
         self.initial_dialog_id = WaterfallDialog.__name__ + "2"
 
