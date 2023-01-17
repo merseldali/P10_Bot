@@ -80,7 +80,7 @@ class MainDialog(ComponentDialog):
             self._luis_recognizer, step_context.context
         )
 
-        if intent == Intent.BOOK.value and luis_result:
+        if intent in (Intent.BOOK.value, Intent.INFO.value) and luis_result:
             # Run the BookingDialog giving it whatever details we have from the LUIS call.
             return await step_context.begin_dialog(self._booking_dialog_id, luis_result)
 

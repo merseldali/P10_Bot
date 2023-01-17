@@ -72,11 +72,21 @@ class LuisHelper:
                 if len(start_date_entities) > 0:
                     result.start_travel_date = start_date_entities[0]["text"].capitalize()
 
+                start_date_entities2 = recognizer_result.entities.get("datetime", [])
+
+                if len(start_date_entities2) == 2:
+                    result.start_travel_date = start_date_entities2[0]["timex"][0]
+
                 end_date_entities = recognizer_result.entities.get("$instance", {}).get(
                     "end_date", []
                 )
                 if len(end_date_entities) > 0:
                     result.end_travel_date = end_date_entities[0]["text"].capitalize()
+
+                end_date_entities2 = recognizer_result.entities.get("datetime", [])
+
+                if len(end_date_entities2) == 2:
+                    result.end_travel_date = end_date_entities2[0]["timex"][0]
 
         except Exception as exception:
             print(exception)
