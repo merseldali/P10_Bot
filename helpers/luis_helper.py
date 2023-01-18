@@ -53,18 +53,21 @@ class LuisHelper:
                 )
                 if len(to_entities) > 0:
                     result.destination = to_entities[0]["text"].capitalize()
+                    result.destination = result.destination.replace('.', '').strip()
 
                 from_entities = recognizer_result.entities.get("$instance", {}).get(
                     "or_city", []
                 )
                 if len(from_entities) > 0:
                     result.origin = from_entities[0]["text"].capitalize()
+                    result.origin = result.origin.replace('.', '').strip()
 
                 budget_entities = recognizer_result.entities.get("$instance", {}).get(
                     "budget", []
                 )
                 if len(budget_entities) > 0:
                     result.budget = budget_entities[0]["text"].capitalize()
+                    result.budget = result.budget.replace('.', '').strip()
 
                 start_date_entities = recognizer_result.entities.get("$instance", {}).get(
                     "str_date", []
@@ -86,7 +89,7 @@ class LuisHelper:
                 end_date_entities2 = recognizer_result.entities.get("datetime", [])
 
                 if len(end_date_entities2) == 2:
-                    result.end_travel_date = end_date_entities2[0]["timex"][0]
+                    result.end_travel_date = end_date_entities2[1]["timex"][0]
 
         except Exception as exception:
             print(exception)

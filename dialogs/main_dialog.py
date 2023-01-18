@@ -37,12 +37,12 @@ class MainDialog(ComponentDialog):
         self.add_dialog(booking_dialog)
 
         wfdialog = WaterfallDialog(
-                "WFDialog", [self.intro_step, self.act_step, self.final_step]
+                "MainDialog", [self.intro_step, self.act_step, self.final_step]
             )
         wfdialog.telemetry_client = self.telemetry_client
         self.add_dialog(wfdialog)
 
-        self.initial_dialog_id = "WFDialog"
+        self.initial_dialog_id = "MainDialog"
 
     async def intro_step(self, step_context: WaterfallStepContext) -> DialogTurnResult:
         if not self._luis_recognizer.is_configured:
@@ -57,7 +57,7 @@ class MainDialog(ComponentDialog):
             return await step_context.next(None)
         message_text = (
             str(step_context.options)
-            if step_context.options
+            if hasattr(step_context, "options") and step_context.options is not None
             else "What can I help you with today?"
         )
         prompt_message = MessageFactory.text(
@@ -108,7 +108,7 @@ class MainDialog(ComponentDialog):
             # travel_date_msg = time_property.to_natural_language(datetime.now())
             msg_txt = (
                 f"I have you booked to {result.destination} from {result.origin} on {result.start_travel_date} "
-                f"to {result.end_travel_date} with a budget of {result.budget}"
+                f"to {result.end_travel_date} with a budget of {result.budget}."
             )
             message = MessageFactory.text(msg_txt, msg_txt, InputHints.ignoring_input)
             await step_context.context.send_activity(message)

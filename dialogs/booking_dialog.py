@@ -158,8 +158,8 @@ class BookingDialog(CancelAndHelpDialog):
         booking_details.budget = step_context.result
         message_text = (
             f"Please confirm, I have you traveling to: { booking_details.destination } from: "
-            f"{ booking_details.origin } on : { booking_details.start_travel_date} to "
-            f"{ booking_details.end_travel_date } with a budget of { booking_details.budget } ."
+            f"{ booking_details.origin } on: { booking_details.start_travel_date} to "
+            f"{ booking_details.end_travel_date } with a budget of { booking_details.budget }."
         )
         prompt_message = MessageFactory.text(
             message_text, message_text, InputHints.expecting_input
