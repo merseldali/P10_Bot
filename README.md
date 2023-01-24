@@ -1,5 +1,9 @@
 # FlyBot
 
+Repository URL : https://github.com/merseldali/P10_Bot
+
+Deployed Production URL : https://p10-bot.azurewebsites.net/api/messages
+
 Author : Dali MERSEL
 
 Bot Framework v4 bot for flights booking.
