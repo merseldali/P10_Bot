@@ -31,7 +31,7 @@ Once you created the LUIS model, update `config.py` with your `LuisAppId`, `Luis
   "LuisAPIHostName": "Your LUIS App region here (i.e: westus.api.cognitive.microsoft.com)"
 ```
 
-## To try this sample
+## To try this bot
 
 - Clone the repository
 ```bash
