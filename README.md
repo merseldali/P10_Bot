@@ -1,6 +1,8 @@
-# CoreBot
+# FlyBot
 
-Bot Framework v4 core bot sample.
+Author : Dali MERSEL
+
+Bot Framework v4 bot for flights booking.
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
 
@@ -11,7 +13,7 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
 
 ## Prerequisites
 
-This sample **requires** prerequisites in order to run.
+This bot **requires** prerequisites in order to run.
 
 ### Overview
 
@@ -19,7 +21,7 @@ This bot uses [LUIS](https://www.luis.ai), an AI based cognitive service, to imp
 
 ### Create a LUIS Application to enable language understanding
 
-The LUIS model for this example can be found under `CognitiveModels/FlightBooking.json` and the LUIS language model setup, training, and application configuration steps can be found [here](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-luis?view=azure-bot-service-4.0&tabs=cs).
+The LUIS model for this example can be created by using the notebook and the LUIS language model setup, training, and application configuration steps can be found [here](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-luis?view=azure-bot-service-4.0&tabs=cs).
 
 Once you created the LUIS model, update `config.py` with your `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName`.
 
@@ -33,9 +35,8 @@ Once you created the LUIS model, update `config.py` with your `LuisAppId`, `Luis
 
 - Clone the repository
 ```bash
-git clone https://github.com/Microsoft/botbuilder-samples.git
+git clone https://github.com/merseldali/P10_Bot.git
 ```
-- In a terminal, navigate to `botbuilder-samples\samples\python\13.core-bot` folder
 - Activate your desired virtual environment
 - In the terminal, type `pip install -r requirements.txt`
 - Run your bot with `python app.py`
@@ -50,7 +51,7 @@ git clone https://github.com/Microsoft/botbuilder-samples.git
 
 - Launch Bot Framework Emulator
 - File -> Open Bot
-- Enter a Bot URL of `http://localhost:3978/api/messages`
+- Enter a Bot URL of `http://localhost:8000/api/messages`
 
 ## Deploy the bot to Azure
 
